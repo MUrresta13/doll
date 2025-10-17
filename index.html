@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jigsaw: The Chain Escape</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Start overlay -->
+  <div id="startOverlay" class="overlay">
+    <button id="startBtn" class="btn btn-primary big">Start the Challenge</button>
+  </div>
+
+  <!-- Primer -->
+  <div id="primer" class="primer hidden" aria-hidden="true">
+    <audio id="primerAudio" preload="auto"></audio>
+    <img id="jigsawFace" class="face" src="Jigsaw Face.png" alt="Jigsaw Face" />
+    <div id="cc" class="cc hidden" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <!-- Game -->
+  <main id="app" class="hidden">
+    <header class="top">
+      <h1>⛓️ The Chain Escape</h1>
+      <p class="desc">
+        Alternate the arrows to break free. Each prompt gives you <strong>1 second</strong> to respond.
+        Miss <strong>4</strong> and you fail. Survive all <strong>150</strong> to escape.
+      </p>
+      <div class="stats">
+        <div>Prompt <span id="idx">1</span> / 150</div>
+        <div>Misses: <span id="misses">0</span> / 4</div>
+        <div id="status" class="status">Ready…</div>
+      </div>
+    </header>
+
+    <section class="arena">
+      <div class="prompt" id="promptSymbol">→</div>
+      <div class="controls">
+        <button class="arrow" data-key="ArrowLeft">←</button>
+        <button class="arrow" data-key="ArrowDown">↓</button>
+        <button class="arrow" data-key="ArrowUp">↑</button>
+        <button class="arrow" data-key="ArrowRight">→</button>
+      </div>
+      <p class="hint">Use keyboard arrows or tap the buttons.</p>
+      <div class="bar"><div id="timerBar" class="fill"></div></div>
+    </section>
+  </main>
+
+  <!-- Fail dialog -->
+  <dialog id="resultDlg">
+    <h3 id="resultTitle">Result</h3>
+    <p id="resultMsg"></p>
+    <button id="againBtn" class="btn">Try Again</button>
+  </dialog>
+
+  <!-- Success dialog -->
+  <dialog id="passDlg">
+    <h3>✅ You broke the chains!</h3>
+    <p>Passcode for Clue 16:</p>
+    <div class="code-row">
+      <input id="codeField" value="HEXADECIMALCURSE" readonly />
+      <button id="copyBtn" class="btn btn-primary">Copy code</button>
+    </div>
+    <button id="closePass" class="btn">Close</button>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
