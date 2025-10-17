@@ -94,20 +94,38 @@ function updateHUD(){
 
 function nextPrompt(){
   clearTimers();
-  if(misses>=MAX_MISSES) return fail(`You missed ${misses} times. The chains hold…`);
-  if(currentIndex>=TOTAL_PROMPTS) return succeed();
 
-  const key=sequence[currentIndex];
-  const sym={ArrowRight:'→',ArrowLeft:'←',ArrowDown:'↓',ArrowUp:'↑'}[key];
-  promptSymbol.textContent=sym; statusEl.textContent='…';
-  awaiting=true;
-  const start=performance.now();
-  barTimer=animateBar(start,WINDOW_MS);
-  windowTimer=setTimeout(()=>{
-    if(awaiting){
-      awaiting=false; misses++; updateHUD(); flashBad(); currentIndex++; nextPrompt();
+  // End states
+  if (misses >= MAX_MISSES){
+    return fail(`You missed ${misses} times. The chains hold…`);
+  }
+  if (currentIndex >= TOTAL_PROMPTS){
+    return succeed();
+  }
+
+  // 🔧 Update the on-screen counters for this prompt
+  updateHUD(); // <-- now shows the current prompt number as soon as it appears
+
+  // Show symbol for expected key
+  const key = sequence[currentIndex];
+  const sym = { ArrowRight:'→', ArrowLeft:'←', ArrowDown:'↓', ArrowUp:'↑' }[key];
+  promptSymbol.textContent = sym;
+  statusEl.textContent = '…';
+
+  // Start the 1-second response window + timer bar
+  awaiting = true;
+  const start = performance.now();
+  barTimer = animateBar(start, WINDOW_MS);
+  windowTimer = setTimeout(() => {
+    if (awaiting) {
+      awaiting = false;
+      misses++;
+      updateHUD();          // keep misses in sync immediately
+      flashBad();
+      currentIndex++;       // advance even on a timeout miss
+      nextPrompt();
     }
-  },WINDOW_MS);
+  }, WINDOW_MS);
 }
 
 function handleInput(k){
