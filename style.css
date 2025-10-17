@@ -1,0 +1,72 @@
+:root {
+  --bg:#0a0c0f; --ink:#e8eef6; --muted:#9fb0c5;
+  --accent:#e11d48; --panel:#121821; --edge:#1e2633;
+  --good:#10b981; --bad:#ef4444; --bar:#1f2937; --barFill:#f59e0b;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:radial-gradient(1200px 800px at 50% -10%, #151a23, var(--bg) 60%);
+  color:var(--ink);
+}
+.hidden{display:none!important}
+
+/* Buttons & overlay */
+.overlay{
+  position:fixed; inset:0; display:grid; place-items:center; background:rgba(0,0,0,.9); z-index:10;
+}
+.btn{
+  border:0; border-radius:12px; padding:12px 16px; font-weight:800; cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn.big{padding:18px 24px; font-size:1.1rem}
+.btn-primary{background:var(--accent); color:#fff; box-shadow:0 12px 36px rgba(225,29,72,.35)}
+.btn-primary:hover{transform:translateY(-1px)}
+.btn-primary:active{transform:translateY(1px)}
+
+/* Primer */
+.primer{
+  position:fixed; inset:0; background:#000; display:grid; place-items:center; z-index:9;
+}
+.face{max-width:94vw; max-height:90vh; opacity:0; pointer-events:none;}
+@keyframes flash {0%,49%{opacity:0;} 50%,100%{opacity:1;}}
+
+/* Closed captions */
+.cc{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:0 6vw;
+  font-weight:800; font-size:clamp(18px,4.5vw,36px);
+  line-height:1.2; color:#fff;
+  text-shadow:0 3px 12px rgba(0,0,0,.7), 0 0 30px rgba(255,255,255,.15);
+  pointer-events:none;
+}
+
+/* Game layout */
+.top{text-align:center; padding:18px 16px}
+h1{margin:.2rem 0 .4rem}
+.desc{color:var(--muted); margin:0 auto 6px; max-width:720px}
+.stats{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; color:var(--muted)}
+
+.arena{
+  max-width:700px; margin:14px auto; padding:18px;
+  border-radius:16px; background:var(--panel); border:1px solid var(--edge);
+  display:grid; gap:14px; place-items:center;
+}
+.prompt{font-size:6rem; line-height:1;}
+.controls{display:flex; gap:10px}
+.arrow{
+  font-size:1.6rem; padding:12px 16px; background:#182231; border:1px solid #2a3445;
+  color:var(--ink); border-radius:10px; cursor:pointer;
+}
+.hint{color:var(--muted); margin:0}
+.bar{width:min(520px,90vw); height:10px; background:var(--bar); border-radius:999px; overflow:hidden; border:1px solid #273145;}
+.fill{height:100%; width:0%; background:linear-gradient(90deg,var(--barFill),#f97316)}
+
+dialog{
+  border:0; border-radius:14px; background:var(--panel); color:var(--ink);
+  padding:22px; width:min(520px,92vw); text-align:center; box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+.code-row{display:flex; gap:8px; margin:12px 0}
+#codeField{flex:1; padding:10px 12px; border-radius:10px; border:1px solid #2b3648; background:#0c121b; color:var(--ink)}
